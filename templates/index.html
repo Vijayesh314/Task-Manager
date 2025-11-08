@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Routine Gamifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">🎮 Routine Quest</h1>
+            <div class="user-stats" id="userStats">
+                <div class="stat-item">
+                    <span class="stat-label">Level</span>
+                    <span class="stat-value" id="userLevel">1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">XP</span>
+                    <span class="stat-value" id="userXP">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">💰 Coins</span>
+                    <span class="stat-value" id="userCoins">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">🔥 Streak</span>
+                    <span class="stat-value" id="userStreak">0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- XP Progress Bar -->
+        <div class="xp-bar-container">
+            <div class="xp-bar-label">
+                <span>Experience Progress</span>
+                <span id="xpProgressText">0 / 100 XP</span>
+            </div>
+            <div class="xp-bar">
+                <div class="xp-bar-fill" id="xpBarFill"></div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Task Creation Panel -->
+            <div class="panel task-panel">
+                <h2>➕ Create New Task</h2>
+                <form id="taskForm" class="task-form">
+                    <div class="form-group">
+                        <label for="taskTitle">Task Title</label>
+                        <input type="text" id="taskTitle" name="title" placeholder="e.g., Morning Exercise" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDescription">Description (Optional)</label>
+                        <textarea id="taskDescription" name="description" placeholder="Add details about your task..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskRecurring">
+                                <input type="checkbox" id="taskRecurring" name="recurring">
+                                Recurring Task
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskFrequency">Frequency</label>
+                            <select id="taskFrequency" name="frequency">
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskTime">Scheduled Time (Optional)</label>
+                        <input type="time" id="taskTime" name="scheduled_time">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskXP">XP Reward</label>
+                            <input type="number" id="taskXP" name="xp_reward" value="10" min="1" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="taskCoins">Coin Reward</label>
+                            <input type="number" id="taskCoins" name="coin_reward" value="5" min="1" max="50">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Task</button>
+                </form>
+            </div>
+
+            <!-- Tasks List -->
+            <div class="panel tasks-panel">
+                <h2>📋 Your Tasks</h2>
+                <div id="tasksList" class="tasks-list">
+                    <!-- Tasks will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Rewards & Achievements Panel -->
+            <div class="panel rewards-panel">
+                <h2>🏆 Achievements & Rewards</h2>
+                <div id="badgesList" class="badges-list">
+                    <!-- Badges will be dynamically loaded here -->
+                </div>
+                <div class="shop-section">
+                    <h3>🛒 Avatar Shop</h3>
+                    <div id="shopList" class="shop-list">
+                        <!-- Shop items will be dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Container -->
+        <div id="notificationContainer" class="notification-container"></div>
+
+        <!-- Level Up Modal -->
+        <div id="levelUpModal" class="modal">
+            <div class="modal-content">
+                <div class="level-up-animation">🎉</div>
+                <h2>Level Up!</h2>
+                <p>You've reached level <span id="newLevel">1</span>!</p>
+                <p class="bonus">+50 Bonus Coins! 💰</p>
+                <button class="btn btn-primary" onclick="closeLevelUpModal()">Awesome!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
