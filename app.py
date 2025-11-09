@@ -1,14 +1,28 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import json
 import os
 from datetime import datetime
 import uuid
+import csv
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-in-production'
 
 # Data storage file
 DATA_FILE = 'user_data.json'
+
+# Define shop items (centralized)
+SHOP_ITEMS = {
+    'mountain_boots': {'name': 'Mountain Boots', 'cost': 100, 'description': 'Sturdy boots for mountain climbing'},
+    'backpack': {'name': 'Adventure Backpack', 'cost': 150, 'description': 'A spacious backpack for your journey'},
+    'compass': {'name': 'Golden Compass', 'cost': 200, 'description': 'Never lose your way'},
+    'rope': {'name': 'Magic Rope', 'cost': 125, 'description': 'Strong and lightweight climbing rope'},
+    'map': {'name': 'Ancient Map', 'cost': 175, 'description': 'Reveals hidden mountain paths'},
+    'water_bottle': {'name': 'Enchanted Water Bottle', 'cost': 100, 'description': 'Never runs empty'},
+    'first_aid': {'name': 'Healer\'s Kit', 'cost': 150, 'description': 'For magical healing'},
+    'tent': {'name': 'Cloud Tent', 'cost': 250, 'description': 'A cozy shelter in the mountains'}
+}
 
 def load_data():
     """Load user data from JSON file"""
@@ -43,14 +57,105 @@ def initialize_user(data, user_id):
             'last_completed_date': None,
             'total_tasks_completed': 0,
             'badges': [],
-            'avatar_customizations': ['default']
+            'inventory': []
         }
-    return data['users'][user_id]
+    # Migrate old data structure if needed
+    user = data['users'][user_id]
+    if 'avatar_customizations' in user and 'inventory' not in user:
+        user['inventory'] = [item for item in user['avatar_customizations'] if item != 'default']
+        del user['avatar_customizations']
+        save_data(data)
+    if 'inventory' not in user:
+        user['inventory'] = []
+        save_data(data)
+    return user
 
 @app.route('/')
 def index():
     """Main page"""
+    if 'username' not in session:
+        return redirect(url_for('login'))
     return render_template('index.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """Login page"""
+    if request.method == 'POST':
+        username = request.form['username'].strip()
+        password = request.form['password']
+        
+        if not username or not password:
+            return render_template('login.html', error='Please fill in all fields')
+        
+        # Read CSV file
+        try:
+            with open('login_info.csv', 'r') as f:
+                reader = csv.DictReader(f)
+                for user in reader:
+                    if user['username'] == username and check_password_hash(user['password'], password):
+                        session['username'] = username
+                        session['user_id'] = str(uuid.uuid4())
+                        session['avatar'] = user['avatar']
+                        session['coins'] = int(user['coins'])
+                        return redirect(url_for('index'))
+            
+            return render_template('login.html', error='Invalid username or password')
+        except FileNotFoundError:
+            return render_template('login.html', error='System error. Please try again later.')
+    
+    return render_template('login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    """Register page"""
+    if request.method == 'POST':
+        username = request.form['username'].strip()
+        password = request.form['password']
+        confirm_password = request.form.get('confirm_password', '')
+        
+        # Validation
+        if not username or not password:
+            return render_template('register.html', error='Please fill in all fields')
+            
+        if len(username) < 3:
+            return render_template('register.html', error='Username must be at least 3 characters long')
+            
+        if len(password) < 6:
+            return render_template('register.html', error='Password must be at least 6 characters long')
+            
+        if password != confirm_password:
+            return render_template('register.html', error='Passwords do not match')
+        
+        try:
+            # Check if username already exists
+            with open('login_info.csv', 'r') as f:
+                reader = csv.DictReader(f)
+                if any(user['username'] == username for user in reader):
+                    return render_template('register.html', error='Username already exists')
+            
+            # Hash password and add new user
+            hashed_password = generate_password_hash(password)
+            with open('login_info.csv', 'a', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow([username, hashed_password, 'default', 100, ''])  # Starting with 100 coins
+            
+            # Start session
+            session['username'] = username
+            session['user_id'] = str(uuid.uuid4())
+            session['avatar'] = 'default'
+            session['coins'] = 100
+            
+            return redirect(url_for('index'))
+        except Exception as e:
+            return render_template('register.html', error='Registration failed. Please try again.')
+    
+    return render_template('register.html')
+
+@app.route('/logout')
+def logout():
+    """Logout user"""
+    session.clear()
+    return redirect(url_for('login'))
 
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():
@@ -245,20 +350,72 @@ def unlock_customization():
     user = initialize_user(data, user_id)
     
     item_data = request.json
-    item_name = item_data.get('item')
+    item_id = item_data.get('item')
     item_cost = item_data.get('cost', 100)
     
-    if item_name in user['avatar_customizations']:
+    # Validate item exists
+    if item_id not in SHOP_ITEMS:
+        return jsonify({'error': 'Invalid item'}), 400
+        
+    item = SHOP_ITEMS[item_id]
+    
+    # Initialize inventory if doesn't exist
+    if 'inventory' not in user:
+        user['inventory'] = []
+    
+    # Check if already owned
+    if item_id in user.get('inventory', []):
         return jsonify({'error': 'Item already unlocked'}), 400
     
-    if user['coins'] < item_cost:
+    # Check if enough coins
+    if user['coins'] < item['cost']:
         return jsonify({'error': 'Not enough coins'}), 400
     
-    user['coins'] -= item_cost
-    user['avatar_customizations'].append(item_name)
+    # Purchase the item
+    user['coins'] -= item['cost']
+    user['inventory'].append(item_id)
     
     save_data(data)
-    return jsonify({'message': 'Item unlocked!', 'user': user})
+    return jsonify({
+        'message': f'Successfully purchased {item["name"]}!',
+        'user': user,
+        'item': {
+            'id': item_id,
+            'name': item['name'],
+            'cost': item['cost']
+        }
+    })
+
+@app.route('/profile')
+def profile():
+    """User profile page"""
+    if 'username' not in session:
+        return redirect(url_for('login'))
+        
+    data = load_data()
+    user_id = get_user_id()
+    user = initialize_user(data, user_id)
+    
+    # Initialize inventory if doesn't exist
+    if 'inventory' not in user:
+        user['inventory'] = []
+        save_data(data)
+    
+    # Get user's purchased items
+    purchased_items = [
+        {**SHOP_ITEMS[item], 'id': item}
+        for item in user.get('inventory', [])
+        if item in SHOP_ITEMS
+    ]
+    
+    # Get total coins earned (current + spent)
+    total_coins_earned = user['coins'] + sum(SHOP_ITEMS[item]['cost'] for item in user.get('inventory', []) if item in SHOP_ITEMS)
+    
+    return render_template('profile.html',
+                         username=session['username'],
+                         user=user,
+                         purchased_items=purchased_items,
+                         total_coins_earned=total_coins_earned)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
