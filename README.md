@@ -1,6 +1,6 @@
 # Taskality
 
-Transform your mundane everyday tasks and habits into engaging mini-games! This app motivates users to complete daily routines by gamifying task completion with points, levels, achievements, and rewards.
+Transform your mundane everyday tasks and habits into a fun and interactive experience! This app motivates users to complete daily routines by gamifying task completion with points, levels, achievements, and rewards.
 
 ## Features
 
