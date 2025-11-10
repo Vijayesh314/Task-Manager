@@ -17,11 +17,72 @@
     --border-color: #e5e7eb;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --page-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --primary-color: #60a5fa;
+    --secondary-color: #818cf8;
+    --success-color: #34d399;
+    --warning-color: #fbbf24;
+    --danger-color: #f87171;
+    --bg-color: #0b1220;
+    --card-bg: #0f1724;
+    --text-primary: #e6eef8;
+    --text-secondary: #9aa8bd;
+    --border-color: #16202b;
+    --page-bg: linear-gradient(180deg, #0b1220 0%, #0f1724 100%);
+}
+
+/* Solarized warm theme */
+[data-theme="solar"] {
+    --primary-color: #b58900;
+    --secondary-color: #cb4b16;
+    --success-color: #859900;
+    --warning-color: #d33682;
+    --danger-color: #dc322f;
+    --bg-color: #fdf6e3;
+    --card-bg: #fff8dc;
+    --text-primary: #073642;
+    --text-secondary: #586e75;
+    --border-color: #eee8d5;
+    --page-bg: linear-gradient(135deg, #fff8dc 0%, #f6e9c9 100%);
+}
+
+/* Midnight theme */
+[data-theme="midnight"] {
+    --primary-color: #7c3aed;
+    --secondary-color: #06b6d4;
+    --success-color: #34d399;
+    --warning-color: #f59e0b;
+    --danger-color: #fb7185;
+    --bg-color: #020617;
+    --card-bg: #061025;
+    --text-primary: #e6f0ff;
+    --text-secondary: #98a8c7;
+    --border-color: #0b2540;
+    --page-bg: radial-gradient(circle at 20% 20%, #061025 0%, #020617 60%);
+}
+
+/* Pastel theme */
+[data-theme="pastel"] {
+    --primary-color: #ff7ab6;
+    --secondary-color: #7ae7ff;
+    --success-color: #b8ffb0;
+    --warning-color: #ffd36b;
+    --danger-color: #ff9b9b;
+    --bg-color: #fffaf0;
+    --card-bg: #ffffff;
+    --text-primary: #264653;
+    --text-secondary: #6d6f76;
+    --border-color: #f0e9e0;
+    --page-bg: linear-gradient(135deg, #fffaf0 0%, #f7f0ff 100%);
 }
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--page-bg);
     min-height: 100vh;
     color: var(--text-primary);
     padding: 20px;
@@ -97,6 +158,26 @@ body {
 
 .form-hint.error {
     color: var(--danger-color);
+}
+
+.form-hint.success {
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+.form-hint.warning {
+    color: var(--warning-color);
+    font-weight: 500;
+}
+
+.form-hint.password-strength {
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.form-hint.password-match {
+    font-weight: 600;
+    margin-top: 6px;
 }
 
 .form-hint.success {
