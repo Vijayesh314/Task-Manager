@@ -483,6 +483,7 @@
         <div class="tabs">
             <button class="tab-button active" onclick="switchTab('quests')">📜 Quests</button>
             <button class="tab-button" onclick="switchTab('challenges')">⚡ Challenges</button>
+            <button class="tab-button" onclick="switchTab('social')">💬 Social</button>
             <button class="tab-button" onclick="switchTab('leaderboards')">🏆 Leaderboards</button>
         </div>
 
@@ -554,6 +555,33 @@
 
             <div id="leaderboard-container"></div>
         </div>
+        
+        <!-- SOCIAL TAB -->
+        <div id="social" class="tab-content">
+            <h2>Social Feed</h2>
+            <div id="social-feed" style="margin-bottom:20px;">
+                <div class="empty-state">
+                    <div class="empty-state-icon">💬</div>
+                    <p>No activity yet. Share an achievement from your profile!</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 30px;">Challenge Friends</h2>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;">
+                <div style="flex:1;min-width:300px;">
+                    <h3>Friends</h3>
+                    <div id="users-list">
+                        <div class="empty-state"><p>Loading users...</p></div>
+                    </div>
+                </div>
+                <div style="flex:1;min-width:300px;">
+                    <h3>Pending Challenges</h3>
+                    <div id="pending-challenges">
+                        <div class="empty-state"><p>No pending challenges.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -572,6 +600,8 @@
                 loadQuests();
             } else if (tabName === 'challenges') {
                 loadChallenges();
+                } else if (tabName === 'social') {
+                    loadSocial();
             }
         }
 
@@ -826,6 +856,125 @@
             }
         }
 
+        // SOCIAL LOGIC
+        async function loadSocial(){
+            try{
+                // load feed
+                const [feedResp, usersResp, templatesResp, pendingResp] = await Promise.all([
+                    fetch(`${API_BASE}/api/social-feed`),
+                    fetch(`${API_BASE}/api/users`),
+                    fetch(`${API_BASE}/api/challenge-templates`),
+                    fetch(`${API_BASE}/api/pending-challenges`)
+                ]);
+
+                const feed = await feedResp.json();
+                const users = await usersResp.json();
+                const templates = await templatesResp.json();
+                const pending = await pendingResp.json();
+
+                renderSocialFeed(feed.shares || []);
+                renderUsersList(users.users || [], templates.templates || {});
+                renderPendingChallenges(pending.pending || []);
+            } catch(e){
+                console.error('Error loading social data', e);
+            }
+        }
+
+        function renderSocialFeed(shares){
+            const container = document.getElementById('social-feed');
+            if(!shares || shares.length === 0){
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💬</div><p>No activity yet. Share an achievement from your profile!</p></div>';
+                return;
+            }
+
+            container.innerHTML = shares.map(s => `
+                <div class="challenge-card" style="display:flex;gap:12px;align-items:center;">
+                    <div style="font-size:28px;">🏅</div>
+                    <div>
+                        <div style="font-weight:600">${s.username} shared: ${s.badge.replace('_',' ')}</div>
+                        <div style="font-size:13px;color:#666">${s.message || ''}</div>
+                        <div style="font-size:12px;color:#999;margin-top:6px">${s.timestamp}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderUsersList(users, templates){
+            const container = document.getElementById('users-list');
+            if(!users || users.length === 0){
+                container.innerHTML = '<div class="empty-state"><p>No other users found.</p></div>';
+                return;
+            }
+
+            const templateOptions = Object.entries(templates).map(([id,t]) => `<option value="${id}">${t.name}</option>`).join('');
+
+            container.innerHTML = users.map(u => `
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;border:1px solid #eee;margin-bottom:8px;">
+                    <div style="font-weight:600">${u.username}</div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <select id="tpl-${u.id}" style="padding:6px;border-radius:6px;border:1px solid #ddd">${templateOptions}</select>
+                        <button style="padding:6px 10px;border-radius:6px;background:#ff9800;border:none;color:white;cursor:pointer" onclick="challengeFriend('${u.id}')">Challenge</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function challengeFriend(friendId){
+            try{
+                const select = document.getElementById('tpl-' + friendId);
+                const template_id = select ? select.value : 'daily_grind';
+                const resp = await fetch(`${API_BASE}/api/challenge-friend`, {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({friend_id: friendId, template_id})
+                });
+                const data = await resp.json();
+                if(resp.ok){
+                    alert('Challenge sent!');
+                    loadSocial();
+                } else {
+                    alert(data.error || 'Failed to send challenge');
+                }
+            } catch(e){
+                alert('Network error');
+            }
+        }
+
+        function renderPendingChallenges(pending){
+            const container = document.getElementById('pending-challenges');
+            if(!pending || pending.length === 0){
+                container.innerHTML = '<div class="empty-state"><p>No pending challenges.</p></div>';
+                return;
+            }
+
+            container.innerHTML = pending.map(p => `
+                <div style="padding:10px;border-radius:8px;border:1px solid #eee;margin-bottom:8px;">
+                    <div style="font-weight:600">${p.from_username} challenged you</div>
+                    <div style="font-size:13px;color:#666">Template: ${p.template_id}</div>
+                    <div style="margin-top:8px;display:flex;gap:8px;">
+                        <button style="padding:6px 10px;background:#4CAF50;color:white;border:none;border-radius:6px;cursor:pointer" onclick="respondPending('${p.id}', true)">Accept</button>
+                        <button style="padding:6px 10px;background:#ddd;color:#333;border:none;border-radius:6px;cursor:pointer" onclick="respondPending('${p.id}', false)">Decline</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function respondPending(id, accept){
+            try{
+                const resp = await fetch(`${API_BASE}/api/pending-challenges/${id}/respond`, {
+                    method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({accept})
+                });
+                const data = await resp.json();
+                if(resp.ok){
+                    alert('Response recorded');
+                    loadSocial();
+                } else {
+                    alert(data.error || 'Failed to respond');
+                }
+            } catch(e){
+                alert('Network error');
+            }
+        }
+
         function switchLeaderboard(type) {
             document.querySelectorAll('.lb-tab-btn').forEach(el => el.classList.remove('active'));
             event.target.classList.add('active');
@@ -895,5 +1044,6 @@
         // Load quests on page load
         loadQuests();
     </script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 </body>
 </html>
