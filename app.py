@@ -13,7 +13,7 @@ from firebase_admin import credentials, db
 
 # Initialize Flask app ONCE
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # CHANGE THIS IN PRODUCTION!
+app.secret_key = "supersecretkey"
 app.permanent_session_lifetime = timedelta(days=7)
 
 try:
