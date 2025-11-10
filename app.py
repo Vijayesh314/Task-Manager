@@ -1281,33 +1281,44 @@ def get_calendar_tasks():
     
     return jsonify({'tasks': calendar_data, 'start_date': start_date, 'end_date': end_date})
 
-UPLOAD_FOLDER = os.path.join('static', 'avatars')
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+AVATAR_UPLOAD_FOLDER = os.path.join('static', 'avatars')
+ALLOWED_AVATAR_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['AVATAR_UPLOAD_FOLDER'] = AVATAR_UPLOAD_FOLDER
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+# ensure avatar folder exists
+os.makedirs(app.config['AVATAR_UPLOAD_FOLDER'], exist_ok=True)
 
-@app.route('/upload_avatar', methods=['POST'])
-def upload_avatar():
-    if 'username' not in session:
+def allowed_avatar_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_AVATAR_EXTENSIONS
+
+@app.route('/upload_avatar', methods=['POST'], endpoint='upload_avatar_post')
+def upload_avatar_post():
+    # require logged-in user (uses existing get_user_id helper)
+    try:
+        user_id = get_user_id()
+    except Exception:
         return redirect(url_for('login'))
+
     if 'avatar' not in request.files:
-        return redirect(url_for('profile'))  # or flash message
-    file = request.files['avatar']
-    if file.filename == '' or not allowed_file(file.filename):
         return redirect(url_for('profile'))
-    filename = secure_filename(f"{session['username']}_{file.filename}")
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    file = request.files['avatar']
+    if file.filename == '' or not allowed_avatar_file(file.filename):
+        return redirect(url_for('profile'))
+
+    filename = secure_filename(f"{user_id}_{file.filename}")
+    save_path = os.path.join(app.config['AVATAR_UPLOAD_FOLDER'], filename)
     file.save(save_path)
 
-    # update user data (use existing save_data function)
-    data = load_data()  # if you have a helper to load user_data.json
-    user = data.get(session['username'], {})
-    user['avatar'] = os.path.join('avatars', filename)  # path relative to static/
-    data[session['username']] = user
-    save_data(data)  # <- [`save_data`](app.py)
+    # update user record (assumes load_data/save_data and data['users'])
+    data = load_data()
+    if 'users' not in data:
+        data['users'] = {}
+
+    user = data['users'].get(user_id, {})
+    user['avatar'] = os.path.join('avatars', filename).replace('\\', '/')
+    data['users'][user_id] = user
+    save_data(data)
 
     return redirect(url_for('profile'))
 
