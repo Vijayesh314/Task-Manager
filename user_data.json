@@ -1,37 +1,632 @@
 {
   "users": {
-    "5a6edf8d-f36e-4b5c-b4c4-1b8e6956c9b4": {
-      "level": 1,
-      "xp": 58,
-      "coins": 70,
+    "14fae70f-5f41-4804-a224-063e3fa9b74c": {
+      "level": 2,
+      "xp": 0,
+      "coins": 0,
       "streak": 1,
-      "last_completed_date": "2025-11-08T13:04:34.919081",
-      "total_tasks_completed": 5,
+      "last_completed_date": "2025-11-08T17:31:34.822408",
+      "total_tasks_completed": 1,
       "badges": [],
-      "avatar_customizations": [
-        "default",
+      "inventory": [
         "hat_1"
       ]
+    },
+    "4743c92d-3c00-4642-b2e1-028f873f974c": {
+      "level": 2,
+      "xp": 100,
+      "coins": 50,
+      "streak": 1,
+      "last_completed_date": "2025-11-08T17:48:42.392778",
+      "total_tasks_completed": 2,
+      "badges": [],
+      "inventory": [
+        "mountain_boots"
+      ]
+    },
+    "79c830f0-1f25-4157-a5ab-bde126230923": {
+      "level": 5,
+      "xp": 0,
+      "coins": 50,
+      "streak": 1,
+      "last_completed_date": "2025-11-08T18:29:53.386597",
+      "total_tasks_completed": 10,
+      "badges": [
+        "tasks_10"
+      ],
+      "inventory": [
+        "mountain_boots",
+        "tent",
+        "water_bottle",
+        "compass"
+      ]
+    },
+    "d59f0e4b-8d5d-46e0-b9f1-615422282fc9": {
+      "level": 2,
+      "xp": 0,
+      "coins": 0,
+      "streak": 1,
+      "last_completed_date": "2025-11-08T18:56:50.174193",
+      "total_tasks_completed": 1,
+      "badges": [],
+      "inventory": [
+        "mountain_boots"
+      ]
+    },
+    "301e750c-0852-4912-a3a3-c308d7d843d9": {
+      "level": 1,
+      "xp": 0,
+      "coins": 0,
+      "streak": 0,
+      "last_completed_date": null,
+      "total_tasks_completed": 0,
+      "badges": [],
+      "inventory": [],
+      "username": "Player",
+      "joined_date": "2025-11-10T09:45:03.621439",
+      "total_coins_earned": 0,
+      "active_quests": [],
+      "completed_quests": [],
+      "active_challenges": [],
+      "completed_challenges": []
+    },
+    "8a46298b-04e5-4175-b830-fc13d0f6d5e1": {
+      "level": 1,
+      "xp": 0,
+      "coins": 0,
+      "streak": 0,
+      "last_completed_date": null,
+      "total_tasks_completed": 0,
+      "badges": [],
+      "inventory": [],
+      "username": "Player",
+      "joined_date": "2025-11-10T09:48:33.992892",
+      "total_coins_earned": 0,
+      "active_quests": [],
+      "completed_quests": [],
+      "active_challenges": [],
+      "completed_challenges": [],
+      "theme": "light"
+    },
+    "97b04899-87ca-42a8-b046-0e2620db288b": {
+      "level": 1,
+      "xp": 0,
+      "coins": 0,
+      "streak": 0,
+      "last_completed_date": null,
+      "total_tasks_completed": 0,
+      "badges": [],
+      "inventory": [],
+      "username": "vijayesh.vasanth",
+      "joined_date": "2025-11-10T11:50:30.808771",
+      "total_coins_earned": 0,
+      "active_quests": [],
+      "completed_quests": [],
+      "active_challenges": [],
+      "completed_challenges": [],
+      "theme": "light"
+    },
+    "75c7a18b-3362-4b0c-bb55-f89eea549cb6": {
+      "level": 5,
+      "xp": 0,
+      "coins": 25,
+      "streak": 1,
+      "last_completed_date": "2025-11-10T12:23:22.693449",
+      "total_tasks_completed": 10,
+      "badges": [
+        "tasks_10"
+      ],
+      "inventory": [
+        "mountain_boots",
+        "compass",
+        "water_bottle",
+        "rope",
+        "backpack"
+      ],
+      "username": "aryaman09",
+      "joined_date": "2025-11-10T12:18:09.840892",
+      "total_coins_earned": 0,
+      "active_quests": [],
+      "completed_quests": [],
+      "active_challenges": [],
+      "completed_challenges": [],
+      "theme": "light",
+      "default_xp_reward": 100,
+      "default_coin_reward": 50,
+      "notifications_enabled": true
+    },
+    "e57fcdab-6b9c-4b03-ba2f-da2dbca166e3": {
+      "level": 3,
+      "xp": 0,
+      "coins": 0,
+      "streak": 1,
+      "last_completed_date": "2025-11-10T12:34:50.231879",
+      "total_tasks_completed": 3,
+      "badges": [],
+      "inventory": [
+        "mountain_boots",
+        "backpack"
+      ],
+      "username": "subrat",
+      "joined_date": "2025-11-10T12:30:38.562040",
+      "total_coins_earned": 0,
+      "active_quests": [],
+      "completed_quests": [],
+      "active_challenges": [],
+      "completed_challenges": [],
+      "theme": "solar"
     }
   },
   "tasks": {
-    "abfc8797-7a42-483d-b2a5-1d06de50739a": {
-      "id": "abfc8797-7a42-483d-b2a5-1d06de50739a",
-      "user_id": "5a6edf8d-f36e-4b5c-b4c4-1b8e6956c9b4",
-      "title": "daily question",
-      "description": "what was going through ur mind when u decided to ask our arpita's mom instead of her daughter",
+    "df25f7c3-c125-4d30-8bf1-17ec3f8385bd": {
+      "id": "df25f7c3-c125-4d30-8bf1-17ec3f8385bd",
+      "user_id": "14fae70f-5f41-4804-a224-063e3fa9b74c",
+      "title": "brushing",
+      "description": "brushing teeth",
       "recurring": true,
       "frequency": "daily",
-      "scheduled_time": "21:00",
-      "xp_reward": 18,
+      "scheduled_time": "09:30",
+      "xp_reward": 100,
       "coin_reward": 50,
       "completed": true,
       "completed_dates": [
         "2025-11-08"
       ],
-      "created_at": "2025-11-08T13:04:27.651468",
+      "created_at": "2025-11-08T17:31:31.956662",
+      "streak": 1
+    },
+    "bf06bfc9-b419-4a42-a9c4-4c42614901d7": {
+      "id": "bf06bfc9-b419-4a42-a9c4-4c42614901d7",
+      "user_id": "4743c92d-3c00-4642-b2e1-028f873f974c",
+      "title": "cvhjTYOWC",
+      "description": "DAH8O;FR.",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "05:06",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T17:48:17.936267",
+      "streak": 1
+    },
+    "b69f8b3c-0285-4550-a424-eb02fcf3ed49": {
+      "id": "b69f8b3c-0285-4550-a424-eb02fcf3ed49",
+      "user_id": "4743c92d-3c00-4642-b2e1-028f873f974c",
+      "title": "GFIUYGSO.EK",
+      "description": "VWSHDY9O'P9EG[OVPFKR",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "02:08",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T17:48:40.549180",
+      "streak": 0
+    },
+    "6450b716-b470-4454-881e-701c63325c54": {
+      "id": "6450b716-b470-4454-881e-701c63325c54",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "brushing",
+      "description": "brushing teeth",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "06:30",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T17:55:39.166138",
+      "streak": 1
+    },
+    "b54835db-2c3b-4c3e-8837-39cf9a073e3b": {
+      "id": "b54835db-2c3b-4c3e-8837-39cf9a073e3b",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "daily question",
+      "description": "vasankikerghif]\nw3['",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:27:14.579529",
+      "streak": 0
+    },
+    "46bbc74a-fb6c-45e8-b3de-578e2a4aa018": {
+      "id": "46bbc74a-fb6c-45e8-b3de-578e2a4aa018",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "cgoieuvosvr",
+      "description": "vheowiuf;wer",
+      "recurring": false,
+      "frequency": "daily",
+      "scheduled_time": "10:03",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:27:29.102642",
+      "streak": 0
+    },
+    "9428dd7e-3d47-4c72-81d9-dd693768c168": {
+      "id": "9428dd7e-3d47-4c72-81d9-dd693768c168",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "gciubp;wsfyroil.jkn",
+      "description": "vrhioql.3ke",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "21:31",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:27:44.641523",
+      "streak": 0
+    },
+    "efbe74d3-9037-4b4f-908d-c9f2bfedb4be": {
+      "id": "efbe74d3-9037-4b4f-908d-c9f2bfedb4be",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "vhril.fyvIOBASEK4TRF",
+      "description": "gvio;leruf",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "02:30",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:28:02.867726",
+      "streak": 0
+    },
+    "1f751a11-c3b6-4f06-b74a-86f80748b1a2": {
+      "id": "1f751a11-c3b6-4f06-b74a-86f80748b1a2",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "bhvkjshyb9pdzok",
+      "description": "cwriol.vi",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "09:06",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:28:20.181920",
+      "streak": 0
+    },
+    "bd0d39ae-9b06-4ce9-b2ac-b40e4edb2129": {
+      "id": "bd0d39ae-9b06-4ce9-b2ac-b40e4edb2129",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "bucikrsilk,x",
+      "description": "h8ofgieryigd",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "09:17",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:28:41.301066",
+      "streak": 0
+    },
+    "41cb76d2-9f47-4451-baeb-360d5ceda151": {
+      "id": "41cb76d2-9f47-4451-baeb-360d5ceda151",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "ghrsdhofujk",
+      "description": "frhio/lvgfr",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "21:31",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:28:58.555567",
+      "streak": 0
+    },
+    "ebd2d132-2936-4f01-bfd3-3ef101c7e317": {
+      "id": "ebd2d132-2936-4f01-bfd3-3ef101c7e317",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "vhrukjf",
+      "description": "gwejiodxulf",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "14:57",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:29:14.558980",
+      "streak": 0
+    },
+    "f219a470-a16f-40ba-a650-9383938c57c5": {
+      "id": "f219a470-a16f-40ba-a650-9383938c57c5",
+      "user_id": "79c830f0-1f25-4157-a5ab-bde126230923",
+      "title": "fucking",
+      "description": "chekuwproe",
+      "recurring": false,
+      "frequency": "daily",
+      "scheduled_time": "15:28",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:29:26.912257",
+      "streak": 0
+    },
+    "b30aaf5b-0cf8-4583-86b9-d1551f6e1832": {
+      "id": "b30aaf5b-0cf8-4583-86b9-d1551f6e1832",
+      "user_id": "d59f0e4b-8d5d-46e0-b9f1-615422282fc9",
+      "title": "dressing",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "09:30",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-08"
+      ],
+      "created_at": "2025-11-08T18:56:42.299305",
+      "streak": 1
+    },
+    "c6b419de-0ea4-4810-b373-6e3615d59ee3": {
+      "id": "c6b419de-0ea4-4810-b373-6e3615d59ee3",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "daily question",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "09:39",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:20:21.134278",
+      "streak": 1
+    },
+    "aed6578c-f88a-475a-ae88-4ef83db90823": {
+      "id": "aed6578c-f88a-475a-ae88-4ef83db90823",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "brushing",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "09:08",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:20:39.202697",
+      "streak": 0
+    },
+    "d8dcf71f-d9ea-48f8-9622-5071e7b6efa5": {
+      "id": "d8dcf71f-d9ea-48f8-9622-5071e7b6efa5",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "vij",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "21:08",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:21:01.088845",
+      "streak": 0
+    },
+    "03593f72-974f-4e8b-bcb7-6ee7dedc8374": {
+      "id": "03593f72-974f-4e8b-bcb7-6ee7dedc8374",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "fyu/po",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "05:06",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:21:11.935948",
+      "streak": 0
+    },
+    "addfb3eb-bf82-4d1f-b482-98e1da95ce22": {
+      "id": "addfb3eb-bf82-4d1f-b482-98e1da95ce22",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "qwaerstdijlo",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "09:50",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:21:26.477334",
+      "streak": 0
+    },
+    "421299db-68c6-49ab-93e5-ca2186447d5b": {
+      "id": "421299db-68c6-49ab-93e5-ca2186447d5b",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "dtrtyo.ilkhj",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "02:34",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:21:36.523370",
+      "streak": 0
+    },
+    "77ea864d-4e9c-4714-88a7-fa04c54a14c8": {
+      "id": "77ea864d-4e9c-4714-88a7-fa04c54a14c8",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "asdfghjk",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "15:45",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:22:21.913426",
+      "streak": 0
+    },
+    "0ef22a63-6607-4167-ac38-afc4af8b6c9c": {
+      "id": "0ef22a63-6607-4167-ac38-afc4af8b6c9c",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "zxcvbn",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "17:06",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:22:30.731180",
+      "streak": 0
+    },
+    "b9b2dedb-709f-4593-850c-219f6990ac47": {
+      "id": "b9b2dedb-709f-4593-850c-219f6990ac47",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "asdfghnm",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "09:06",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:22:45.628744",
+      "streak": 0
+    },
+    "009003ff-b598-42fb-87d8-288c4c422bac": {
+      "id": "009003ff-b598-42fb-87d8-288c4c422bac",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "title": "qwsdfghj",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "12:30",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:22:56.322694",
+      "streak": 0
+    },
+    "6bf95378-4a15-45c9-98a3-245fce2c3f32": {
+      "id": "6bf95378-4a15-45c9-98a3-245fce2c3f32",
+      "user_id": "e57fcdab-6b9c-4b03-ba2f-da2dbca166e3",
+      "title": "brushing",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "09:30",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:33:48.859804",
+      "streak": 1
+    },
+    "b2c472b4-0539-4b86-8164-cd7b57db80d2": {
+      "id": "b2c472b4-0539-4b86-8164-cd7b57db80d2",
+      "user_id": "e57fcdab-6b9c-4b03-ba2f-da2dbca166e3",
+      "title": "showering",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "09:45",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:34:06.688882",
+      "streak": 0
+    },
+    "3d35e4c5-a729-4a13-82a9-ae3de67e7a31": {
+      "id": "3d35e4c5-a729-4a13-82a9-ae3de67e7a31",
+      "user_id": "e57fcdab-6b9c-4b03-ba2f-da2dbca166e3",
+      "title": "school prep",
+      "description": "",
+      "recurring": true,
+      "frequency": "daily",
+      "scheduled_time": "10:00",
+      "xp_reward": 100,
+      "coin_reward": 50,
+      "completed": true,
+      "completed_dates": [
+        "2025-11-10"
+      ],
+      "created_at": "2025-11-10T12:34:23.438701",
       "streak": 0
     }
   },
-  "achievements": {}
+  "achievements": {},
+  "social": {
+    "f3483e54-0cb5-40e2-827f-944faca7999f": {
+      "id": "f3483e54-0cb5-40e2-827f-944faca7999f",
+      "user_id": "75c7a18b-3362-4b0c-bb55-f89eea549cb6",
+      "username": "aryaman09",
+      "badge": "tasks_10",
+      "message": "yay",
+      "timestamp": "2025-11-10T12:24:44.972405"
+    }
+  }
 }
