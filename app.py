@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 import firebase_admin
 from firebase_admin import credentials, auth, db
 
+
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-in-production'
 
@@ -1280,5 +1281,35 @@ def get_calendar_tasks():
     
     return jsonify({'tasks': calendar_data, 'start_date': start_date, 'end_date': end_date})
 
+UPLOAD_FOLDER = os.path.join('static', 'avatars')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload_avatar', methods=['POST'])
+def upload_avatar():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    if 'avatar' not in request.files:
+        return redirect(url_for('profile'))  # or flash message
+    file = request.files['avatar']
+    if file.filename == '' or not allowed_file(file.filename):
+        return redirect(url_for('profile'))
+    filename = secure_filename(f"{session['username']}_{file.filename}")
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(save_path)
+
+    # update user data (use existing save_data function)
+    data = load_data()  # if you have a helper to load user_data.json
+    user = data.get(session['username'], {})
+    user['avatar'] = os.path.join('avatars', filename)  # path relative to static/
+    data[session['username']] = user
+    save_data(data)  # <- [`save_data`](app.py)
+
+    return redirect(url_for('profile'))
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)]
+    app.run(debug=True, port=5000)
