@@ -87,14 +87,43 @@
                 <h2><i class="fas fa-medal"></i> Achievements</h2>
                 <div class="badges-container">
                     {% for badge in user.badges %}
-                    <div class="badge-item">
+                    <div class="badge-item" id="badge-{{ loop.index }}">
                         <i class="fas fa-{{ 'fire' if 'streak' in badge else 'tasks' }}"></i>
                         <span>{{ badge.replace('_', ' ').title() }}</span>
+                        <button class="share-badge-btn" data-badge="{{ badge }}" style="margin-left:12px;padding:6px 8px;border-radius:6px;border:none;cursor:pointer;background:#4CAF50;color:white;">Share</button>
                     </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        async function shareBadge(badge, message=''){
+            try{
+                const resp = await fetch('/api/share-achievement', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({badge, message})
+                });
+                const data = await resp.json();
+                if(resp.ok){
+                    alert('Achievement shared to social feed!');
+                } else {
+                    alert(data.error || 'Failed to share');
+                }
+            } catch(e){
+                alert('Network error');
+            }
+        }
+
+        document.querySelectorAll('.share-badge-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const badge = e.target.dataset.badge;
+                const message = prompt('Optional message to include with your achievement:', '');
+                shareBadge(badge, message || '');
+            });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 </body>
 </html>
