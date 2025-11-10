@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from functools import wraps
 import firebase_admin
+import firebase_auth
 from firebase_admin import credentials, db
 
 # Initialize Flask app ONCE
@@ -24,7 +25,6 @@ except Exception as e:
     print("Error initializing Firebase:", e)
 
 @app.route('/api/quests/<quest_id>', methods=['DELETE'])
-@login_required
 def abandon_quest(quest_id):
     """Abandon an active quest"""
     data = load_data()
@@ -45,13 +45,11 @@ def abandon_quest(quest_id):
 # ============ CHALLENGES ENDPOINTS ============
 
 @app.route('/api/challenge-templates', methods=['GET'])
-@login_required
 def get_challenge_templates():
     """Get available challenge templates"""
     return jsonify({'templates': CHALLENGE_TEMPLATES})
 
 @app.route('/api/challenge-templates', methods=['POST'])
-@login_required
 def add_challenge_template():
     """Add a custom challenge template (admin only)"""
     # Simple admin check (replace with real auth in production)
@@ -82,7 +80,6 @@ def add_challenge_template():
 # ============ SOCIAL / FRIEND CHALLENGES ============
 
 @app.route('/api/users', methods=['GET'])
-@login_required
 def list_users():
     """Return a list of users (id, username)"""
     data = load_data()
@@ -92,7 +89,6 @@ def list_users():
     return jsonify({'users': users})
 
 @app.route('/api/share-achievement', methods=['POST'])
-@login_required
 def share_achievement():
     """Share an achievement to the social feed"""
     user_id = get_user_id()
@@ -127,7 +123,6 @@ def share_achievement():
     return jsonify({'message': 'Achievement shared!', 'share': share})
 
 @app.route('/api/social-feed', methods=['GET'])
-@login_required
 def social_feed():
     """Return recent shared achievements"""
     data = load_data()
@@ -137,7 +132,6 @@ def social_feed():
     return jsonify({'shares': shares})
 
 @app.route('/api/challenge-friend', methods=['POST'])
-@login_required
 def challenge_friend():
     """Send a challenge invitation to a friend"""
     user_id = get_user_id()
@@ -181,7 +175,6 @@ def challenge_friend():
     return jsonify({'message': 'Challenge sent!', 'pending': pending})
 
 @app.route('/api/pending-challenges', methods=['GET'])
-@login_required
 def get_pending_challenges():
     """Get pending challenges for current user"""
     data = load_data()
@@ -193,7 +186,6 @@ def get_pending_challenges():
     return jsonify({'pending': pending})
 
 @app.route('/api/pending-challenges/<pending_id>/respond', methods=['POST'])
-@login_required
 def respond_pending_challenge(pending_id):
     """Accept or decline a pending challenge"""
     user_id = get_user_id()
@@ -250,7 +242,6 @@ def respond_pending_challenge(pending_id):
     return jsonify({'message': 'Response recorded', 'pending': pending})
 
 @app.route('/api/challenges', methods=['GET'])
-@login_required
 def get_challenges():
     """Get all challenges for current user"""
     data = load_data()
@@ -296,7 +287,6 @@ def get_challenges():
     })
 
 @app.route('/api/challenges', methods=['POST'])
-@login_required
 def create_challenge():
     """Start a new challenge from template"""
     data = load_data()
@@ -345,7 +335,7 @@ def create_challenge():
     })
 
 @app.route('/api/challenges/<challenge_id>/check', methods=['POST'])
-@login_required
+
 def check_challenge_progress(challenge_id):
     """Check challenge progress"""
     data = load_data()
@@ -424,7 +414,7 @@ def check_challenge_progress(challenge_id):
 # ============ LEADERBOARDS ENDPOINTS ============
 
 @app.route('/api/leaderboards', methods=['GET'])
-@login_required
+
 def get_leaderboards():
     """Get global leaderboards"""
     data = load_data()
@@ -484,7 +474,7 @@ def get_leaderboards():
 # ============ PAGE ROUTES ============
 
 @app.route('/profile')
-@login_required
+
 def profile():
     """User profile page"""
     data = load_data()
@@ -516,19 +506,19 @@ def profile():
                          total_coins_earned=total_coins_earned)
 
 @app.route('/gamemechanics')
-@login_required
+
 def gamemechanics():
     """Quests, challenges, and leaderboards page"""
     return render_template('gamemechanics.html')
 
 @app.route('/calendar')
-@login_required
+
 def calendar():
     """Calendar view for weekly/monthly task planning"""
     return render_template('calendar.html')
 
 @app.route('/api/calendar/tasks')
-@login_required
+
 def get_calendar_tasks():
     """Get tasks for calendar view with date range"""
     data = load_data()
@@ -577,7 +567,7 @@ def allowed_avatar_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_AVATAR_EXTENSIONS
 
 @app.route('/upload_avatar', methods=['POST'], endpoint='upload_avatar_post')
-@login_required
+
 def upload_avatar_post():
     user_id = get_user_id()
     if not user_id:
@@ -823,7 +813,7 @@ def login_required(f):
 # ============ AUTHENTICATION ROUTES ============
 
 @app.route('/')
-@login_required
+
 def index():
     return render_template('index.html')
 
@@ -989,7 +979,7 @@ def auth_google():
 # ============ TASK ROUTES ============
 
 @app.route('/api/tasks', methods=['GET'])
-@login_required
+
 def get_tasks():
     """Get all tasks for current user"""
     data = load_data()
@@ -1003,7 +993,7 @@ def get_tasks():
     return jsonify({'tasks': user_tasks})
 
 @app.route('/api/tasks', methods=['POST'])
-@login_required
+
 def create_task():
     """Create a new task"""
     data = load_data()
@@ -1041,7 +1031,7 @@ def create_task():
     return jsonify({'task': new_task, 'message': 'Task created successfully!'})
 
 @app.route('/api/tasks/<task_id>', methods=['PUT'])
-@login_required
+
 def update_task(task_id):
     """Update a task"""
     data = load_data()
@@ -1064,7 +1054,7 @@ def update_task(task_id):
     return jsonify({'task': task, 'message': 'Task updated successfully!'})
 
 @app.route('/api/tasks/<task_id>', methods=['DELETE'])
-@login_required
+
 def delete_task(task_id):
     """Delete a task"""
     data = load_data()
@@ -1080,7 +1070,7 @@ def delete_task(task_id):
     return jsonify({'message': 'Task deleted successfully!'})
 
 @app.route('/api/tasks/<task_id>/complete', methods=['POST'])
-@login_required
+
 def complete_task(task_id):
     """Mark task as completed and award rewards"""
     data = load_data()
@@ -1175,7 +1165,7 @@ def complete_task(task_id):
 # ============ USER ROUTES ============
 
 @app.route('/api/user', methods=['GET'])
-@login_required
+
 def get_user():
     """Get current user data"""
     data = load_data()
@@ -1198,7 +1188,7 @@ def get_user():
     })
 
 @app.route('/api/theme', methods=['GET', 'POST'])
-@login_required
+
 def theme_api():
     """Get or set theme preference"""
     data = load_data()
@@ -1228,7 +1218,7 @@ def theme_api():
     return jsonify({'message': 'Theme updated', 'theme': theme})
 
 @app.route('/api/settings', methods=['GET', 'POST'])
-@login_required
+
 def settings_api():
     """Get or update user settings"""
     data = load_data()
@@ -1268,7 +1258,7 @@ def settings_api():
         return jsonify({'error': 'Invalid settings payload'}), 400
 
 @app.route('/api/user/avatar', methods=['POST'])
-@login_required
+
 def upload_avatar():
     """Upload avatar image for current user"""
     user_id = get_user_id()
@@ -1297,7 +1287,7 @@ def upload_avatar():
     return jsonify({'error': 'Invalid file type'}), 400
 
 @app.route('/api/user/unlock', methods=['POST'])
-@login_required
+
 def unlock_customization():
     """Unlock avatar/item customization"""
     data = load_data()
@@ -1346,13 +1336,13 @@ def unlock_customization():
 # ============ QUESTS ENDPOINTS ============
 
 @app.route('/api/quest-templates', methods=['GET'])
-@login_required
+
 def get_quest_templates():
     """Get available quest templates"""
     return jsonify({'templates': QUEST_TEMPLATES})
 
 @app.route('/api/quests', methods=['GET'])
-@login_required
+
 def get_quests():
     """Get all quests for current user"""
     data = load_data()
@@ -1387,7 +1377,7 @@ def get_quests():
     })
 
 @app.route('/api/quests', methods=['POST'])
-@login_required
+
 def create_quest():
     """Start a new quest from template"""
     data = load_data()
@@ -1438,7 +1428,7 @@ def create_quest():
     })
 
 @app.route('/api/quests/<quest_id>/check', methods=['POST'])
-@login_required
+
 def check_quest_progress(quest_id):
     """Check if quest objective is met and complete if so"""
     data = load_data()
